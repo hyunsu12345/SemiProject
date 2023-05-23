@@ -6,7 +6,10 @@
 	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/spring/root-context.xml</param-value>
+		<param-value>
+			/WEB-INF/spring/root-context.xml
+			classpath:spring-security.xml
+		</param-value> <!-- classpath는 설정파일들을 집어넣는 큰 resources폴더를 의미 -->
 	</context-param>
 	
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
@@ -27,7 +30,52 @@
 		
 	<servlet-mapping>
 		<servlet-name>appServlet</servlet-name>
-		<url-pattern>/</url-pattern>
+		<url-pattern>*.do</url-pattern> <!-- .do로 끝나는 url은 모두 DispatcherServlet가 처리하겠다 -->
 	</servlet-mapping>
+	
+
+	
+	<!-- 인코딩 처리 -->
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class> <!-- CharacterEncodingFilter는 encoding하는 filter객체를 만들어 줌 -->
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern> <!-- 모든 url을 받아줌 -->
+	</filter-mapping>
+	
+	
+	<!-- 1:1문의 목록 게시판 관련 -->
+	<servlet>
+      <servlet-name>qaServlet</servlet-name>
+      <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+      <init-param>
+         <param-name>contextConfigLocation</param-name>
+         <param-value>/WEB-INF/spring/appServlet/qa-context.xml</param-value>
+      </init-param>
+   </servlet>
+   <servlet-mapping>
+      <servlet-name>qaServlet</servlet-name>
+      <url-pattern>*.qa</url-pattern>
+   </servlet-mapping>
+   
+   <!-- 공지사항 게시판 관련 -->
+	<servlet>
+      <servlet-name>noticeServlet</servlet-name>
+      <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+      <init-param>
+         <param-name>contextConfigLocation</param-name>
+         <param-value>/WEB-INF/spring/appServlet/notice-context.xml</param-value>
+      </init-param>
+   </servlet>
+   <servlet-mapping>
+      <servlet-name>noticeServlet</servlet-name>
+      <url-pattern>*.bo</url-pattern>
+   </servlet-mapping>
 
 </web-app>

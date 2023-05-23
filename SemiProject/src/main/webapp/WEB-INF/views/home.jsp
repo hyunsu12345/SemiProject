@@ -1,14 +1,15 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
+<!DOCTYPE html>
 <html>
 <head>
-	<title>Home</title>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<meta charset="utf-8">
 </head>
 <body>
-<h1>
-	Hello world!  
-</h1>
-
-<P>  The time on the server is ${serverTime}. </P>
+	<c:set value="${ pageContext.servletContext.contextPath }" var="contextPath" scope="application"/>
+	<a href="${ contextPath }/noticeList.bo">Hello PfF!</a>  
 </body>
 </html>

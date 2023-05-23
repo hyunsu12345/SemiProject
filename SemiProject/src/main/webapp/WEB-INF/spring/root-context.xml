@@ -4,5 +4,32 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
-		
+	<!-- DataSource 등록(DB연결) -->
+	<bean class="org.apache.commons.dbcp.BasicDataSource" id="dataSource" destroy-method="close"> <!-- BasicDataSourc라는 객체 생성(id속성값은 bean태그를 부르는 이름) -->
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/> <!-- property태그는 자바에서 setter이용해서 값을 설정하는 것과 같음(name속성값은 setter메소드명과 같음) -->
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:orcl"/>
+		<property name="username" value="SEMI_TEST"/>
+		<property name="password" value="SEMI_TEST"/>
+	</bean>
+	
+	<!-- SqlSession 빈 등록 -->	
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:mybatis-config.xml"/> <!-- 어떤 파일을 참조해서 sqlSession을 만들것인지 설정 -->
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	<bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlSessionTemplate"> <!-- SpringMybatis에선 SqlSessionTemplate을 이용해서 sqlSession 생성 -->
+		<constructor-arg ref="sqlSession"/> <!-- constructor-arg태그는 매개변수이 있는 생성자를 사용하여 값을 대입하는 방식 -->
+											<!-- ref는 위에서 만든 SqlSessionFactoryBean객체의 id속성값 참조  -->
+	</bean>
+
+	<bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager" id="transactionManager"> <!-- DataSourceTransactionManager은 트랜잭션을 하기 위한 객체 -->
+		<property name="dataSource" ref="dataSource"/> <!-- ref 속성은 위에서 만든 BasicDataSource의 id속성값 -->
+	</bean>
+	
+	<!-- 파일 업로드 -->
+	<bean id="multipartResolver" 
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="100000000"/>
+		<property name="maxInMemorySize" value="100000000"/>
+	</bean>
 </beans>

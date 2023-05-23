@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+	
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL"/> <!-- jdbc가 null값을 인지하게 만들어줌 -->
+	</settings>
+	
+	<typeAliases>
+		<typeAlias type="semi.proj.PfF.notice.model.vo.Notice" alias="Notice"/>
+		<typeAlias type="semi.proj.PfF.qa.model.vo.Qa" alias="Qa"/>
+	</typeAliases>
+	
+	<mappers>
+		<mapper resource="mappers/notice-mapper.xml"/>
+		<mapper resource="mappers/qa-mapper.xml"/>
+	</mappers>
+</configuration>

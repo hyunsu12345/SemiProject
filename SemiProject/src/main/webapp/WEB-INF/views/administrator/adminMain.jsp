@@ -68,7 +68,6 @@ a{color: black; font-size: 18px; text-decoration: none !important;}
 		        </div>
 		        <ul>
 		          <li><a href="${contextPath}/faqManagement.bo">FAQ 관리</a></li>
-		          <li><a href="${contextPath}/memberList.bo">회원 목록</a></li>
 		          <li><a href="${contextPath}/noticeUpdate.bo">공지사항 및 수정</a></li>
 		        </ul>
 		      </div>
